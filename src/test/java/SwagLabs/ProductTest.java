@@ -1,5 +1,8 @@
-package test;
+package SwagLabs;
 
+import PagesOfSwaglabs.HomePage;
+import PagesOfSwaglabs.LoginPage;
+import PagesOfSwaglabs.ProductPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -19,11 +22,12 @@ public class ProductTest extends BaseTest {
     String ExpectedPrice = "$9.99";
 
     public void validateProductPrice() {
-        driver.findElement(usernameField).sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButton).click();
-        driver.findElement(productlink).click();
-        String actualValue = driver.findElement(productPrice).getText();
+        LoginPage login= new LoginPage(driver);
+        login.Login(username,password);
+        HomePage home = new HomePage(driver);
+        home.openProduct();
+        ProductPage product = new ProductPage(driver);
+        String actualValue = driver.findElement(product.getProductPrice()).getText();
         Assert.assertEquals(actualValue, ExpectedPrice);
 
 
